@@ -38,6 +38,8 @@ window.App = {
 
       accounts = accs;
       account = accounts[0];
+      document.querySelector("#address_loop").innerHTML
+          = "All acounts (this is just for demonstration, these information should be confidential):\n\n"+accounts.join("\n");
 
       self.refreshBalance();
     });
@@ -49,7 +51,6 @@ window.App = {
   },
 
   refreshBalance: function() {
-      alert("alertrefreshbalance");
     var self = this;
 
     var meta;
@@ -66,6 +67,7 @@ window.App = {
   },
 
   sendCoin: function() {
+  alert(35);
     var self = this;
 
     var amount = parseInt(document.getElementById("amount").value);
