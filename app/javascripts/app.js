@@ -37,9 +37,19 @@ window.App = {
       }
 
       accounts = accs;
-      account = accounts[0];
+
+      var account_num=0;
+      var account_num_obj=document.getElementById("select_account");
+      account_num_obj.addEventListener("change", function() {
+          account_num=this.value;
+          account = accounts[account_num];
+          self.refreshBalance();
+      }, false);
+
+      account = accounts[account_num];
+
       document.querySelector("#address_loop").innerHTML
-          = "All acounts (this is just for demonstration, these information should be confidential):\n\n"+accounts.join("\n");
+          = accounts.join("\n");
 
       self.refreshBalance();
     });
@@ -67,7 +77,6 @@ window.App = {
   },
 
   sendCoin: function() {
-  alert(35);
     var self = this;
 
     var amount = parseInt(document.getElementById("amount").value);
