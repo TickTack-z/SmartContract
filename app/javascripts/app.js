@@ -95,7 +95,29 @@ window.App = {
       console.log(e);
       self.setStatus("Error sending coin; see log.");
     });
+  },
+
+  buyLottery: function(){
+      var self = this;
+
+      var amount = parseInt(document.getElementById("lottery_amount").value);
+
+      this.setStatus("Initiating transaction... (please wait)");
+
+      var meta;
+      MetaCoin.deployed().then(function(instance) {
+          meta = instance;
+          return meta.buyLottery(amount, {from: account});
+      }).then(function() {
+          self.setStatus("Transaction complete!");
+          self.refreshBalance();
+      }).catch(function(e) {
+          console.log(e);
+          self.setStatus("Error buying lottery; see log.");
+      });
   }
+
+
 };
 
 window.addEventListener('load', function() {

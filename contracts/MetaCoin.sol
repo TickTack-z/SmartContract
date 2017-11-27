@@ -19,7 +19,7 @@ contract MetaCoin {
 
 
 	event Transfer(address indexed _from, address indexed _to, uint256 _value);
-	event BuyLottery(address indexed _from, uint256 _value);
+	event BuyLotteryEvent(address indexed _from, uint256 _value);
 
 	function MetaCoin() {
 		balances[tx.origin] = 10000;
@@ -50,12 +50,14 @@ contract MetaCoin {
         }));
         if (jackpot + amount >= 100) {
             uint new_amount = 100 - jackpot;
-            balances[msg.sender] -= amount;
-            jackpot += amount;
+            balances[msg.sender] -= new_amount;
+            jackpot += new_amount;
+            BuyLotteryEvent(msg.sender, new_amount);
             drawLottery();
         } else {
             balances[msg.sender] -= amount;
             jackpot += amount;
+            BuyLotteryEvent(msg.sender, amount);
         }
 		return true;
 	}
