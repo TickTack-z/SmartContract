@@ -72,6 +72,8 @@ contract MetaCoin {
 	            jackpot = 0;
             }
         }
+        Lottery[] temp;
+        lotterys = temp;
 	}
 
 	function getJackpot() returns(uint) {

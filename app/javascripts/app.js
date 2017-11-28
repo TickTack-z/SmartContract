@@ -50,6 +50,16 @@ window.App = {
 
       document.querySelector("#address_loop").innerHTML
           = accounts.join("\n");
+      /*
+      var table = document.getElementById("myTable");
+        for (i =0; i<accounts.length; i++ ){
+            var row=table.insertRow(i);
+            var cell1 = row.insertCell(0);
+            cell1.innerHTML = accounts[i];
+            var cell2= row.insertCell(1);
+            cell2.innerHTML = self.getBalance(accounts[i]);
+        }
+*/
 
       self.refreshBalance();
     });
@@ -58,6 +68,16 @@ window.App = {
   setStatus: function(message) {
     var status = document.getElementById("status");
     status.innerHTML = message;
+  },
+
+  getBalance: function(acc) {
+      var self = this;
+
+      var meta;
+      MetaCoin.deployed().then(function (instance) {
+          meta = instance;
+          return meta.getBalance.call(acc, {from: acc, gas: 1900000});
+      });
   },
 
   refreshBalance: function() {
@@ -74,6 +94,17 @@ window.App = {
       console.log(e);
       self.setStatus("Error getting balance; see log.");
     });
+
+      MetaCoin.deployed().then(function(instance) {
+          meta = instance;
+          return meta.getJackpot.call(account, {from: account});
+      }).then(function(value) {
+          var balance_element = document.getElementById("jackpot");
+          balance_element.innerHTML = value.valueOf();
+      }).catch(function(e) {
+          console.log(e);
+          self.setStatus("Error getting balance; see log.");
+      });
   },
 
   buyLottery: function(){

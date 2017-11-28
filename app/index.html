@@ -8,10 +8,10 @@
 <body>
   <h1>Smart Contract:</h1>
   <h2>Lottery System</h2>
+  <h1>The jackpot is <span id="jackpot"></span>/100 tokens</h1>
   <h3>Account
     <select id="select_account"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
     have <span class="black"><span id="balance"></span> token</span></h3>
-
 
   <br>
   <h1>Send token to others:</h1>
@@ -24,8 +24,11 @@
   <br><br><button id="send_lottery" onclick="App.buyLottery()">Buy Lottery</button>
   <br><br>
   <span id="status"></span>
+  <br>
   <h1>Accounts:</h1>
   <p id="address_loop"></p>
 
+
 </body>
+
 </html>
