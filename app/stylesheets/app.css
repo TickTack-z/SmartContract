@@ -1,7 +1,7 @@
 body {
   margin-left: 25%;
   margin-right: 25%;
-  margin-top: 10%;
+  margin-top: 3%;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -49,4 +49,14 @@ h3 {
 
 .hint {
   color: #666;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: grey;
+}
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: green;
 }

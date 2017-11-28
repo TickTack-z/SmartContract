@@ -46,10 +46,18 @@ window.App = {
           self.refreshBalance();
       }, false);
 
+
       account = accounts[account_num];
 
       document.querySelector("#address_loop").innerHTML
           = accounts.join("\n");
+      /*
+      for (var i=0;i<10;i++){
+          var meta=MetaCoin.deployed();
+          var el = meta.getBalance.call(accounts[i], {from: account, gas: 1900000});
+          alert(el);
+      }
+      */
       /*
       var table = document.getElementById("myTable");
         for (i =0; i<accounts.length; i++ ){
@@ -95,12 +103,31 @@ window.App = {
       self.setStatus("Error getting balance; see log.");
     });
 
+
+
+
+
       MetaCoin.deployed().then(function(instance) {
           meta = instance;
           return meta.getJackpot.call(account, {from: account});
       }).then(function(value) {
           var balance_element = document.getElementById("jackpot");
           balance_element.innerHTML = value.valueOf();
+          var jackpot_element=document.getElementById("jackpot");
+          var jackpot_num=0;
+          jackpot_num=parseInt(jackpot_element.innerHTML);
+          var elem = document.getElementById("myBar");
+          var width = 1;
+          var id = setInterval(frame, 5);
+          function frame() {
+              if (width >= jackpot_num) {
+                  clearInterval(id);
+              } else {
+                  width++;
+                  elem.style.width = width + '%';
+              }
+          }
+
       }).catch(function(e) {
           console.log(e);
           self.setStatus("Error getting balance; see log.");
@@ -151,6 +178,8 @@ window.App = {
 
 };
 
+
+
 window.addEventListener('load', function() {
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
   if (typeof web3 !== 'undefined') {
@@ -164,4 +193,5 @@ window.addEventListener('load', function() {
   }
 
   App.start();
+
 });
