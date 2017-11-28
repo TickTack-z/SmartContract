@@ -8,18 +8,18 @@ import "./ConvertLib.sol";
 
 contract MetaCoin {
 	mapping (address => uint) balances;
-	uint256 public jackpot;
+	uint public jackpot;
 
 	struct Lottery {
 	    address user_address;
-	    uint256 ticket_val;
+	    uint ticket_val;
         }
 
     Lottery[] public lotterys;
 
 
-	event Transfer(address indexed _from, address indexed _to, uint256 _value);
-	event BuyLotteryEvent(address indexed _from, uint256 _value);
+	event Transfer(address indexed _from, address indexed _to, uint _value);
+	event BuyLotteryEvent(address indexed _from, uint _value);
 
 	function MetaCoin() {
 		balances[tx.origin] = 10000;
@@ -35,7 +35,7 @@ contract MetaCoin {
 	}
 
 	function getBalanceInEth(address addr) returns(uint){
-		return ConvertLib.convert(getBalance(addr),1);
+		return ConvertLib.convert(getBalance(addr),99);
 	}
 
 	function getBalance(address addr) returns(uint) {
@@ -49,10 +49,10 @@ contract MetaCoin {
             ticket_val: amount
         }));
         if (jackpot + amount >= 100) {
-            uint new_amount = 100 - jackpot;
-            balances[msg.sender] -= new_amount;
-            jackpot += new_amount;
-            BuyLotteryEvent(msg.sender, new_amount);
+            amount = 100 - jackpot;
+            balances[msg.sender] -= amount;
+            jackpot += amount;
+            BuyLotteryEvent(msg.sender, amount);
             drawLottery();
         } else {
             balances[msg.sender] -= amount;
@@ -72,7 +72,9 @@ contract MetaCoin {
 	            jackpot = 0;
             }
         }
-        Lottery[] temp;
-        lotterys = temp;
+	}
+
+	function getJackpot() returns(uint) {
+		return jackpot;
 	}
 }
