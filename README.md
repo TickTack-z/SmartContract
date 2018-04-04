@@ -1,3 +1,3 @@
 # SmartContract
 
-This is a lottery system developed by using truffle and solidity
+This is a lottery system developed by truffle and solidity
